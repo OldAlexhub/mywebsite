@@ -4,11 +4,17 @@ import helmet from "helmet";
 import dotenv from "dotenv";
 import connectToDb from "./db/connectToDb.js";
 import router from "./routes/routes.js";
+import { fileURLToPath } from "url";
+import path from "path";
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const publicDirecoty = path.join(__dirname, "./public");
+app.use(express.static(publicDirecoty));
 
 app.use(cors());
 app.use(helmet());
